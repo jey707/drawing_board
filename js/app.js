@@ -43,6 +43,34 @@ function onMouseMove(e) {
   }
 }
 
+function startTouch(e) {
+  e.preventDefault();
+
+  if (filling) {
+    ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  } else {
+    ctx.beginPath();
+    startPainting();
+  }
+}
+
+function touchMove(e) {
+  e.preventDefault();
+  const x = e.touches[0].clientX - e.target.offsetLeft;
+  const y =
+    e.touches[0].clientY -
+    e.target.offsetTop +
+    document.documentElement.scrollTop;
+  ctx.lineTo(x, y);
+  ctx.stroke();
+}
+
+function touchEnd(e) {
+  e.preventDefault();
+  ctx.closePath();
+  stopPainting();
+}
+
 function handleCM(e) {
   e.preventDefault();
 }
@@ -54,6 +82,9 @@ if (canvas) {
   canvas.addEventListener("mouseleave", stopPainting);
   canvas.addEventListener("click", handleCanvas);
   canvas.addEventListener("contextmenu", handleCM);
+  canvas.addEventListener("touchstart", startTouch, false);
+  canvas.addEventListener("touchmove", touchMove, false);
+  canvas.addEventListener("touchend", touchEnd, false);
 }
 
 function handleColorClick(e) {
