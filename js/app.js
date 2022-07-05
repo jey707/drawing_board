@@ -9,6 +9,7 @@ const saveBtn = document.getElementById("jsSave");
 const resetBtn = document.getElementById("jsReset");
 
 const INITAL_COLOR = "#2c2c2c";
+const SCREEN_WIDTH = window.innerHeight;
 const CANVAS_SIZE = "700";
 
 canvas.width = CANVAS_SIZE;
